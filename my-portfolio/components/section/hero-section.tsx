@@ -18,7 +18,6 @@ export const HeroSection = () => {
       label: "LinkedIn",
       href: "https://linkedin.com/in/ngocthuanvu301103",
       icon: <FaLinkedinIn />,
-      // Màu xanh LinkedIn đặc trưng (nhạt hơn)
       bgColor: "bg-sky-100 dark:bg-sky-950/30",
       textColor: "text-sky-700 dark:text-sky-300",
     },
@@ -31,9 +30,8 @@ export const HeroSection = () => {
     },
     {
       label: "Medium",
-      href: "#", // Thay bằng link Tech 101 Hub
+      href: "https://medium.com/@vungocthuan1234",
       icon: <FaMediumM />,
-      // Màu xanh Teal nhạt
       bgColor: "bg-teal-100 dark:bg-teal-950/30",
       textColor: "text-teal-700 dark:text-teal-300",
     },
