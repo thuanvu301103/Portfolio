@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import {
   FaGithub,
+  FaDocker,
+  FaLeaf,
   FaExternalLinkAlt,
   FaYoutube,
   FaDatabase,
@@ -52,19 +54,32 @@ const projects = [
     icon: <FaGlobeAsia className="text-blue-400" />,
   },
   {
-    title: "Bank Search",
+    title: "Bank Statement Search",
     tagline: "Financial Indexing",
     description:
       "Custom search algorithms designed to process and index large-scale financial datasets.",
     tech: ["NestJS", "Search Algorithms", "Postgres"],
-    metrics: "60% Faster",
     challenge:
       "Overcoming linear query limitations in massive transaction records.",
     links: {
-      github: "https://hub.docker.com/u/thuanvu301103/bank-statement-app",
-      demo: "#",
+      github: "https://github.com/thuanvu301103/Bank-statement-Search-website",
+      docker:
+        "https://hub.docker.com/repository/docker/thuanvu301103/bank-statement-app",
     },
     icon: <FaDatabase className="text-purple-500" />,
+  },
+  {
+    title: "Smart Farming Portal",
+    tagline: "Smart Farming",
+    description:
+      "An intelligent platform leveraging IoT and machine learning to process large-scale agricultural data for smarter farm management.",
+    tech: ["NestJS", "MongoDB", "MLFlow", "IoT"],
+    challenge:
+      "Breaking through linear query limits to handle massive sensor datasets with speed and scalability.",
+    links: {
+      github: "https://github.com/thuanvu301103/Smart-Farming-Web-portal",
+    },
+    icon: <FaLeaf className="text-pink-500" />,
   },
 ];
 
@@ -94,7 +109,7 @@ export const ProjectsSection = () => {
             key={project.title}
             className="flex-none w-[300px] md:w-[380px] snap-start"
           >
-            <div className="h-[520px] flex flex-col p-8 rounded-[32px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/20 backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/5">
+            <div className="h-[520px] flex flex-col p-8 rounded-[32px] border-2 border-zinc-200 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/20 backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/5">
               {/* Header: Icon & Metric */}
               <div className="flex justify-between items-center mb-8">
                 <div className="text-xl text-zinc-400">{project.icon}</div>
@@ -135,10 +150,6 @@ export const ProjectsSection = () => {
                         e.currentTarget.style.display = "none";
                       }}
                     />
-
-                    <div className="absolute bottom-2 right-2 px-2 py-0.5 bg-zinc-950/60 backdrop-blur-md rounded-md text-[8px] font-black text-white uppercase tracking-widest">
-                      {project.metrics}
-                    </div>
                   </div>
                 </div>
               )}
@@ -163,6 +174,14 @@ export const ProjectsSection = () => {
                     className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
                   >
                     <FaGithub size={18} />
+                  </a>
+                )}
+                {project.links.docker && (
+                  <a
+                    href={project.links.docker}
+                    className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                  >
+                    <FaDocker size={18} />
                   </a>
                 )}
                 {project.links.youtube && (
@@ -190,7 +209,7 @@ export const ProjectsSection = () => {
         <motion.div className="flex-none w-[200px] snap-start">
           <a
             href="/projects"
-            className="h-[520px] flex flex-col items-center justify-center rounded-[32px] border border-dashed border-zinc-200 dark:border-zinc-800 hover:border-emerald-500 transition-all group"
+            className="h-[520px] flex flex-col items-center justify-center rounded-[32px] border-2 border-dashed border-zinc-200 dark:border-zinc-800 hover:border-emerald-500 transition-all group"
           >
             <div className="w-10 h-10 rounded-full bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center mb-3 group-hover:bg-emerald-500 group-hover:text-white transition-all">
               <FaArrowRight size={14} />
