@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/navbar";
 import { AboutSection } from "@/components/section/about-section";
+import { WorkExperience } from "@/components/section/experience-section";
 import { HeroSection } from "@/components/section/hero-section";
 import { ProjectsSection } from "@/components/section/project-section";
 import { TechStack } from "@/components/section/tech-stack-section";
@@ -24,6 +25,10 @@ export default function Home() {
 
         <section id="projects" className="snap-start pt-12">
           <ProjectsSection />
+        </section>
+
+        <section id="experience" className="snap-start pt-12">
+          <WorkExperience />
         </section>
       </main>
     </div>
