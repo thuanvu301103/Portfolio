@@ -14,15 +14,15 @@ export default function Home() {
           <HeroSection />
         </section>
 
-        <section className="snap-start pt-12">
+        <section id="about" className="transition-all snap-start pt-12">
           <AboutSection />
         </section>
 
-        <section className="snap-start pt-12">
+        <section id="techstack" className="transition-all snap-start pt-12">
           <TechStack />
         </section>
 
-        <section className="snap-start pt-12">
+        <section id="projects" className="snap-start pt-12">
           <ProjectsSection />
         </section>
       </main>
