@@ -1,3 +1,4 @@
+import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { AboutSection } from "@/components/section/about-section";
 import { WorkExperience } from "@/components/section/experience-section";
@@ -7,11 +8,11 @@ import { TechStack } from "@/components/section/tech-stack-section";
 
 export default function Home() {
   return (
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory min-h-screen bg-white transition-colors duration-300 dark:bg-zinc-950">
+    <div className="overflow-y-scroll min-h-screen bg-white transition-colors duration-300 dark:bg-zinc-950">
       <Navbar />
 
-      <main className="mx-auto max-w-7xl px-6 pt-12 md:pt-12">
-        <section className="snap-start pt-12">
+      <main className="mx-auto max-w-7xl pt-12">
+        <section className="snap-start">
           <HeroSection />
         </section>
 
@@ -27,9 +28,11 @@ export default function Home() {
           <ProjectsSection />
         </section>
 
-        <section id="experience" className="snap-start pt-12">
+        <section id="experience" className="snap-start">
           <WorkExperience />
         </section>
+
+        <Footer />
       </main>
     </div>
   );

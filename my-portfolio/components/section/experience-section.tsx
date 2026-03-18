@@ -13,7 +13,7 @@ import {
 const experiences = [
   {
     id: "exp-1",
-    company: "Digital Twin Startup",
+    company: "National Digital Twin 15",
     role: "Junior Backend Developer",
     period: "June 2025 – Present",
     description:
@@ -71,7 +71,7 @@ export const WorkExperience = () => {
   return (
     <section
       id="experience"
-      className="py-24 bg-white dark:bg-zinc-950 transition-colors duration-300"
+      className="bg-white dark:bg-zinc-950 transition-colors duration-300"
     >
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header - Matches ProjectsSection.tsx */}
@@ -91,7 +91,7 @@ export const WorkExperience = () => {
         </motion.div>
 
         {/* Scrollable container with utility classes from globals.css */}
-        <div className="relative max-h-[800px] overflow-y-auto pr-4 no-scrollbar py-10 border-y border-zinc-100 dark:border-zinc-900/50">
+        <div className="relative max-h-[800px] overflow-y-auto pr-1 no-scrollbar py-1 border-y border-zinc-100 dark:border-zinc-900/50">
           <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-zinc-100 dark:before:bg-zinc-800/50">
             {experiences.map((exp) => {
               const isOpen = openIds.includes(exp.id);
@@ -103,7 +103,7 @@ export const WorkExperience = () => {
                 >
                   {/* Timeline Dot with Emerald Glow */}
                   <div
-                    className={`flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ${
+                    className={`border-3 flex items-center justify-center w-10 h-10 rounded-xl border transition-all duration-500 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ${
                       isOpen
                         ? "border-emerald-500 bg-zinc-900 dark:bg-zinc-50 text-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.3)] rotate-12"
                         : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-400"
