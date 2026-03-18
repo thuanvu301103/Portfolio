@@ -16,6 +16,11 @@ export const CatSystemCore = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  const [isHovering, setIsHovering] = useState(false);
+
   // Smooth rotation for the "Cat Core"
   const rotateX = useSpring(mouseY, { stiffness: 60, damping: 20 });
   const rotateY = useSpring(mouseX, { stiffness: 60, damping: 20 });
@@ -27,6 +32,8 @@ export const CatSystemCore = () => {
       const y = (e.clientY - window.innerHeight / 2) / 15;
       mouseX.set(x);
       mouseY.set(-y);
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const gameLoop = setInterval(() => {
@@ -60,11 +67,35 @@ export const CatSystemCore = () => {
   };
 
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center bg-zinc-950 overflow-hidden font-mono text-zinc-300">
+    <div
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      className={`relative w-full h-screen flex flex-col items-center justify-center bg-zinc-950 overflow-hidden font-mono text-zinc-300 transition-all ${
+        isHovering ? "cursor-none" : "cursor-default"
+      }`}
+    >
+      {/* Custom Fish Cursor - Only visible when hovering */}
+      <AnimatePresence>
+        {isHovering && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            style={{
+              x: cursorX,
+              y: cursorY,
+              translateX: "-50%", // Center the fish on the actual cursor point
+              translateY: "-50%",
+              pointerEvents: "none",
+            }}
+            className="fixed top-0 left-0 z-[9999] text-3xl select-none"
+          >
+            🐟
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Background Warning Glow */}
-      <div
-        className={`absolute inset-0 transition-opacity duration-1000 ${hunger > 75 ? "opacity-30" : "opacity-0"} bg-[radial-gradient(circle,rgba(255,100,100,1)_0%,transparent_70%)]`}
-      />
+      <div className="absolute inset-0 transition-opacity duration-1000" />
 
       {/* Stats UI */}
       <div className="absolute top-8 left-8 space-y-4 z-10">
@@ -102,7 +133,12 @@ export const CatSystemCore = () => {
 
       {/* The Cat Core */}
       <motion.div
-        style={{ rotateX, rotateY, perspective: 1000 }}
+        style={{
+          rotateX,
+          rotateY,
+          perspective: 1000,
+          cursor: isHovering ? "none" : "pointer",
+        }}
         onClick={handleFeed}
         className="relative w-64 h-64 cursor-pointer group"
       >
@@ -113,7 +149,7 @@ export const CatSystemCore = () => {
             opacity: [0.3, 0.6, 0.3],
           }}
           transition={{ repeat: Infinity, duration: hunger > 70 ? 0.5 : 3 }}
-          className={`absolute inset-0 m-auto w-32 h-32 rounded-full blur-3xl ${hunger > 70 ? "bg-red-500" : "bg-pink-500"}`}
+          className={`absolute inset-0 m-auto w-32 h-32 rounded-full blur-xl ${hunger > 70 ? "bg-red-500" : "bg-green-500"}`}
         />
 
         {/* Orbiting Elements (Meow Particles) */}
@@ -154,6 +190,7 @@ export const CatSystemCore = () => {
         <div className="flex gap-4">
           <button
             onClick={handleFeed}
+            style={{ cursor: isHovering ? "none" : "pointer" }}
             className="px-8 py-3 bg-transparent border border-white/20 text-[10px] font-bold tracking-widest hover:bg-pink-500 hover:border-pink-500 hover:text-white transition-all active:scale-95"
           >
             DISPENSE TREAT (🐟)
