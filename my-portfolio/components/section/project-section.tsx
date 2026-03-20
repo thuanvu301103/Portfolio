@@ -105,7 +105,7 @@ export const ProjectsSection = () => {
         </motion.div>
       </div>
 
-      <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 px-8 md:px-16 pb-12">
+      <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 mx-8 px-16 md:px-16 pb-12">
         {projects.map((project, index) => (
           <motion.div
             key={project.title}

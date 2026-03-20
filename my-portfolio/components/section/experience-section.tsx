@@ -85,7 +85,7 @@ export const WorkExperience = () => {
         </motion.div>
 
         {/* Scrollable container with utility classes from globals.css */}
-        <div className="relative max-h-[800px] overflow-y-auto pr-1 no-scrollbar py-1 border-y border-zinc-100 dark:border-zinc-900/50">
+        <div className="mx-8 relative max-h-[800px] overflow-y-auto pr-1 no-scrollbar py-1 border-y border-zinc-100 dark:border-zinc-900/50">
           <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-zinc-100 dark:before:bg-zinc-800/50">
             {experiences.map((exp) => {
               const isOpen = openIds.includes(exp.id);
