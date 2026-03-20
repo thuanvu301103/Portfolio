@@ -12,7 +12,7 @@ export const Footer = () => {
 
   return (
     <footer className="relative mt-24 border-t border-zinc-100 dark:border-zinc-900 bg-white dark:bg-zinc-950 transition-colors duration-300">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:py-20">
+      <div className="mx-auto max-w-7xl px-6 py-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
           {/* Column 1: Brand & Call to Action */}
           <div className="space-y-6">
