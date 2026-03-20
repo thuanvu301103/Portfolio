@@ -2,6 +2,7 @@ import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { AboutSection } from "@/components/section/about-section";
 import { WorkExperience } from "@/components/section/experience-section";
+import ArticleGraph from "@/components/section/graph-section";
 import { HeroSection } from "@/components/section/hero-section";
 import { ProjectsSection } from "@/components/section/project-section";
 import { TechStack } from "@/components/section/tech-stack-section";
@@ -30,6 +31,10 @@ export default function Home() {
 
         <section id="experience" className="snap-start">
           <WorkExperience />
+        </section>
+
+        <section id="experience" className="snap-start pt-24">
+          <ArticleGraph />
         </section>
 
         <Footer />

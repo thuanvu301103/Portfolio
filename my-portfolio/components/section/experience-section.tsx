@@ -2,13 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Briefcase,
-  Calendar,
-  CheckCircle2,
-  ChevronDown,
-  ExternalLink,
-} from "lucide-react";
+import { Briefcase, ChevronDown, ExternalLink } from "lucide-react";
 
 const experiences = [
   {
@@ -79,7 +73,7 @@ export const WorkExperience = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-8"
         >
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-900 dark:text-zinc-50 mb-4 uppercase">
             Work{" "}
