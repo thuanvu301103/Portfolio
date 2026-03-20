@@ -33,7 +33,7 @@ export default function Home() {
           <WorkExperience />
         </section>
 
-        <section id="experience" className="snap-start pt-24">
+        <section id="knowledge" className="snap-start pt-24">
           <ArticleGraph />
         </section>
 
