@@ -40,6 +40,15 @@ export const Navbar = () => {
           <ul className="hidden md:flex items-center gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
             <li>
               <a
+                href="/#knowledge"
+                className="relative transition-colors hover:text-zinc-900 dark:hover:text-zinc-50 group/link"
+              >
+                Knowledge Archive
+                <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-emerald-500 transition-all group-hover/link:w-full" />
+              </a>
+            </li>
+            <li>
+              <a
                 href="/#experience"
                 className="relative transition-colors hover:text-zinc-900 dark:hover:text-zinc-50 group/link"
               >
