@@ -101,10 +101,10 @@ export const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="#contact"
+                    href="#cert"
                     className="hover:text-emerald-500 transition-colors"
                   >
-                    Contact
+                    Certification
                   </a>
                 </li>
               </ul>
