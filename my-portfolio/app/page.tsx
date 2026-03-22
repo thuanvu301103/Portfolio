@@ -1,6 +1,7 @@
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { AboutSection } from "@/components/section/about-section";
+import { CertificationSection } from "@/components/section/cert-section";
 import { WorkExperience } from "@/components/section/experience-section";
 import ArticleGraph from "@/components/section/graph-section";
 import { HeroSection } from "@/components/section/hero-section";
@@ -35,6 +36,10 @@ export default function Home() {
 
         <section id="knowledge" className="snap-start pt-24">
           <ArticleGraph />
+        </section>
+
+        <section id="cert" className="snap-start pt-24">
+          <CertificationSection />
         </section>
 
         <Footer />

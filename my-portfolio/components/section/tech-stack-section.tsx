@@ -56,7 +56,7 @@ export const TechStack = () => {
             <div className="h-1 w-12 bg-emerald-500 mt-4" />
           </div>
           <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mt-8">
-            Technical Proficiency <br /> & Tooling [2026]
+            Technical Proficiency <br /> & Tooling
           </p>
         </div>
 
