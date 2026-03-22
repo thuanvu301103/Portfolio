@@ -22,7 +22,7 @@ const experiences = [
   },
   {
     id: "exp-2",
-    company: "HPCC Lab (VNU-HCM)",
+    company: "HPCC Lab (HCMUT - VNU-HCM)",
     role: "Student Contributor",
     period: "June 2024 – June 2025",
     description:
