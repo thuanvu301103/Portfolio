@@ -28,7 +28,14 @@ const skills = [
   },
   {
     category: "DevOps & Infrastructure",
-    items: ["Docker", "GitLab CI/CD", "GitHub Actions", "OpenTelemetry", "GCP"],
+    items: [
+      "Docker",
+      "GitLab CI/CD",
+      "GitHub Actions",
+      "OpenTelemetry",
+      "GCP",
+      "Linux",
+    ],
     color: "text-orange-500",
   },
   {
