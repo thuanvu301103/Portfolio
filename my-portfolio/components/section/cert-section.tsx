@@ -115,7 +115,7 @@ export const CertificationSection = () => {
                           </span>
                         ))}
                       </div>
-                      <span className="text-[8px] font-bold text-zinc-300 dark:text-zinc-600 uppercase">
+                      <span className="text-[8px] font-bold text-zinc-500 dark:text-zinc-600 uppercase">
                         {item.date}
                       </span>
                     </div>
@@ -180,7 +180,7 @@ export const CertificationSection = () => {
                   </div>
                   <button
                     onClick={() => setSelectedCert(null)}
-                    className="p-3 bg-zinc-100 dark:bg-zinc-800 rounded-full hover:rotate-90 transition-transform"
+                    className="p-3 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-full hover:rotate-90 transition-transform"
                   >
                     <X size={20} />
                   </button>
@@ -197,7 +197,7 @@ export const CertificationSection = () => {
                         {selectedCert.skills.map((skill) => (
                           <span
                             key={skill}
-                            className="px-3 py-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 text-[10px] font-bold rounded-lg"
+                            className="px-3 py-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700 text-[10px] font-bold rounded-lg text-zinc-500 dark:text-zinc-400"
                           >
                             {skill}
                           </span>
