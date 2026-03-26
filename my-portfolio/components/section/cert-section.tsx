@@ -3,16 +3,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Award,
-  Code,
-  Globe,
   ArrowUpRight,
   X,
   ExternalLink,
   ShieldCheck,
   Zap,
   Box,
-  Image as ImageIcon,
+  Image,
 } from "lucide-react";
 import { certsData } from "@/data/cert-data";
 
