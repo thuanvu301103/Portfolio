@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { NodeObject, ForceGraphMethods } from "react-force-graph-2d"; // Added ForceGraphMethods type
-import { graphData } from "@/data/graph-data";
+import { getNodeColor, graphData } from "@/data/graph-data";
 
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
   ssr: false,
@@ -85,14 +85,14 @@ export default function ArticleGraph() {
       const label = n.title;
       const fontSize = 14 / globalScale;
       const radius = n.size || 2;
-      const hasUrl = !!n.url; // English comment: Check if node has a clickable URL
+      const hasUrl = !!n.url; // Check if node has a clickable URL
+      const nodeColor = getNodeColor(n.group);
 
       // 1. Draw Outer Ring for clickable nodes
       if (hasUrl) {
         ctx.beginPath();
         ctx.arc(n.x, n.y, radius + 2 / globalScale, 0, 2 * Math.PI, false);
-        ctx.strokeStyle =
-          n.group === 1 ? "#3b82f6" : n.group === 2 ? "#10b981" : "#f59e0b";
+        ctx.strokeStyle = nodeColor;
         ctx.lineWidth = 1 / globalScale;
         ctx.stroke();
       }
@@ -100,8 +100,7 @@ export default function ArticleGraph() {
       // 2. Draw Main Node Body
       ctx.beginPath();
       ctx.arc(n.x, n.y, radius, 0, 2 * Math.PI, false);
-      ctx.fillStyle =
-        n.group === 1 ? "#3b82f6" : n.group === 2 ? "#10b981" : "#f59e0b";
+      ctx.fillStyle = nodeColor;
       ctx.fill();
 
       // 3. Draw Label
