@@ -126,7 +126,7 @@ export const graphData = {
     },
     {
       id: "5.1",
-      title: "Core Infrastructure & Networking",
+      title: "Core Infrastructure",
       description: `The Foundation of GCP`,
       size: 4,
       url: "",
@@ -139,6 +139,24 @@ export const graphData = {
       In other words, it lets you control who can do what on which resources.`,
       size: 2,
       url: "https://docs.cloud.google.com/iam/docs/overview",
+      group: 3,
+    },
+    {
+      id: "5.1.3",
+      title: "Cloud Run",
+      description: `Cloud Run is a fully managed application platform for running your code, 
+      function, or container on top of Google's highly scalable infrastructure.`,
+      size: 2,
+      url: "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+      group: 3,
+    },
+    {
+      id: "5.1.4",
+      title: "Compute Engine",
+      description: `Compute Engine is an infrastructure as a service (IaaS) 
+      product that offers self-managed virtual machine (VM) instances and bare metal instances`,
+      size: 2,
+      url: "https://docs.cloud.google.com/compute/docs/overview",
       group: 3,
     },
   ],
@@ -154,6 +172,8 @@ export const graphData = {
     { source: "4", target: "4.5" },
     { source: "5", target: "5.1" },
     { source: "5.1", target: "5.1.1" },
+    { source: "5.1", target: "5.1.3" },
+    { source: "5.1", target: "5.1.4" },
   ],
 };
 
