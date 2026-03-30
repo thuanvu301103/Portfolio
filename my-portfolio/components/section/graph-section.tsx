@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { NodeObject, ForceGraphMethods } from "react-force-graph-2d"; // Added ForceGraphMethods type
 import { getNodeColor, graphData } from "@/data/graph-data";
+import { getNodeColor, graphData } from "@/data/graph-data";
 
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
   ssr: false,
