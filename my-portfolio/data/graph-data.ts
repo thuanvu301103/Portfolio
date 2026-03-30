@@ -63,7 +63,7 @@ export const graphData = {
       description: `Genkit is an open‑source AI development framework built and used in production by Google. 
       Genkit supports building everything from chatbots to agentic workflows to multimodal applications, using consistent APIs. `,
       size: 6,
-      url: "",
+      url: "https://genkit.dev/docs/go/overview/",
       group: 4,
     },
     {
@@ -114,6 +114,33 @@ export const graphData = {
       url: "",
       group: 4,
     },
+    {
+      id: "5",
+      title: "Google Cloud Platform - GCP",
+      description: `GCP (Google Cloud Platform) is Google's cloud computing platform that 
+      provides tools and services for building, deploying, and scaling applications on Google's 
+      global infrastructure`,
+      size: 6,
+      url: "",
+      group: 3,
+    },
+    {
+      id: "5.1",
+      title: "Core Infrastructure & Networking",
+      description: `The Foundation of GCP`,
+      size: 4,
+      url: "",
+      group: 3,
+    },
+    {
+      id: "5.1.1",
+      title: "Identity & Access Management (IAM)",
+      description: `IAM is a tool to manage fine-grained authorization for Google Cloud. 
+      In other words, it lets you control who can do what on which resources.`,
+      size: 2,
+      url: "https://docs.cloud.google.com/iam/docs/overview",
+      group: 3,
+    },
   ],
   links: [
     { source: "1", target: "1.1" },
@@ -124,6 +151,8 @@ export const graphData = {
     { source: "4", target: "4.3" },
     { source: "4", target: "4.4" },
     { source: "4", target: "4.5" },
+    { source: "5", target: "5.1" },
+    { source: "5.1", target: "5.1.1" },
   ],
 };
 
