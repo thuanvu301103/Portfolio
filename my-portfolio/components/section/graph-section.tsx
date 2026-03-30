@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, useRef } from "react"; // Added useRef
+import { useCallback, useEffect, useState, useRef, useMemo } from "react"; // Added useRef
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
@@ -22,6 +22,7 @@ interface ArticleNode extends NodeObject {
 
 export default function ArticleGraph() {
   const router = useRouter();
+  const data = graphData;
   const [theme, setTheme] = useState({ bg: "#ffffff", fg: "#09090b" });
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -47,6 +48,111 @@ export default function ArticleGraph() {
 
   // 1. Create a ref for the graph
   const fgRef = useRef<ForceGraphMethods<any, any> | null>(null);
+
+  const getInitialCollapsedNodes = useCallback(
+    (maxLevel: number) => {
+      const levels: Record<string, number> = {};
+      const collapsed = new Set<string>();
+
+      // 1. Tìm tất cả các node có "cha" (là target của một link nào đó)
+      const nodesWithParents = new Set();
+      data.links.forEach((link) => {
+        const targetId = (link.target as any).id || link.target;
+        nodesWithParents.add(targetId);
+      });
+
+      // 2. Những node KHÔNG có cha sẽ được coi là Root (Level 0)
+      data.nodes.forEach((node) => {
+        if (!nodesWithParents.has(node.id)) {
+          levels[node.id] = 0;
+        }
+      });
+
+      // 3. Tính toán độ sâu cho TẤT CẢ các nhánh (BFS)
+      let changed = true;
+      let safetyNet = 0; // Tránh vòng lặp vô tận nếu có link vòng tròn
+      while (changed && safetyNet < 100) {
+        changed = false;
+        safetyNet++;
+        data.links.forEach((link) => {
+          const sourceId = (link.source as any).id || link.source;
+          const targetId = (link.target as any).id || link.target;
+
+          if (
+            levels[sourceId] !== undefined &&
+            levels[targetId] === undefined
+          ) {
+            levels[targetId] = levels[sourceId] + 1;
+            changed = true;
+          }
+        });
+      }
+
+      // 4. Áp dụng đóng node tại level chỉ định
+      data.nodes.forEach((node) => {
+        const level = levels[node.id];
+        if (level === maxLevel) {
+          const hasChildren = data.links.some(
+            (l) => ((l.source as any).id || l.source) === node.id,
+          );
+          if (hasChildren) {
+            collapsed.add(node.id);
+          }
+        }
+      });
+
+      return collapsed;
+    },
+    [data],
+  );
+
+  // State to store IDs of nodes that are collapsed / hidden
+  const [collapsedNodes, setCollapsedNodes] = useState<Set<string>>(() =>
+    getInitialCollapsedNodes(1),
+  );
+
+  const toggleNode = useCallback(
+    (nodeId: string) => {
+      const newCollapsedNodes = new Set(collapsedNodes);
+      if (newCollapsedNodes.has(nodeId)) {
+        newCollapsedNodes.delete(nodeId);
+      } else {
+        newCollapsedNodes.add(nodeId);
+      }
+      setCollapsedNodes(newCollapsedNodes);
+    },
+    [collapsedNodes],
+  );
+
+  const visibleData = useMemo(() => {
+    // 1. Find all nodes that should be hidden
+    const hiddenIds = new Set<string>();
+
+    const addChildrenToHidden = (parentId: string) => {
+      data.links
+        .filter(
+          (link) =>
+            (link.source as any).id === parentId || link.source === parentId,
+        )
+        .forEach((link) => {
+          const childId = (link.target as any).id || link.target;
+          hiddenIds.add(childId);
+          addChildrenToHidden(childId); // Recursive to hide nested children
+        });
+    };
+
+    collapsedNodes.forEach((id) => addChildrenToHidden(id));
+
+    // 2. Filter the graph data
+    return {
+      nodes: data.nodes.filter((n) => !hiddenIds.has(n.id)),
+      links: data.links.filter((l) => {
+        const sourceId = (l.source as any).id || l.source;
+        const targetId = (l.target as any).id || l.target;
+        return !hiddenIds.has(sourceId) && !hiddenIds.has(targetId);
+      }),
+    };
+  }, [collapsedNodes]);
 
   useEffect(() => {
     const getThemeColors = () => {
@@ -75,8 +181,6 @@ export default function ArticleGraph() {
     }
   }, []);
 
-  const data = graphData;
-
   const paintNode = useCallback(
     (node: NodeObject, ctx: CanvasRenderingContext2D, globalScale: number) => {
       const n = node as ArticleNode;
@@ -87,6 +191,24 @@ export default function ArticleGraph() {
       const radius = n.size || 2;
       const hasUrl = !!n.url; // Check if node has a clickable URL
       const nodeColor = getNodeColor(n.group);
+
+      const isCollapsed = collapsedNodes.has(n.id);
+      const hasChildren = data.links.some(
+        (l) => (l.source as any).id === n.id || l.source === n.id,
+      );
+
+      if (hasChildren) {
+        ctx.save(); // Save current canvas state
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, radius + 5 / globalScale, 0, 2 * Math.PI);
+
+        ctx.setLineDash([5 / globalScale, 5 / globalScale]);
+        ctx.lineWidth = 1 / globalScale; // Thinner line
+        ctx.strokeStyle = `${nodeColor}aa`; // More opaque color for expanded state
+
+        ctx.stroke();
+        ctx.restore(); // Restore canvas state to reset lineDash
+      }
 
       // 1. Draw Outer Ring for clickable nodes
       if (hasUrl) {
@@ -126,6 +248,40 @@ export default function ArticleGraph() {
       window.removeEventListener("resize", handleCenter);
     };
   }, [handleCenter]);
+
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleNodeClick = useCallback(
+    (node: any) => {
+      const n = node as ArticleNode;
+
+      // 1. If there's a second click within the delay, this logic is skipped because of the clear
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current);
+        clickTimeoutRef.current = null;
+
+        // 2. Logic for DOUBLE CLICK: Open URL
+        if (n.url) {
+          window.open(n.url, "_blank", "noopener,noreferrer");
+        }
+        return;
+      }
+
+      // 3. Set a timeout for SINGLE CLICK: Toggle Expand/Collapse
+      clickTimeoutRef.current = setTimeout(() => {
+        const hasChildren = data.links.some(
+          (l) => (l.source as any).id === n.id || l.source === n.id,
+        );
+
+        if (hasChildren) {
+          toggleNode(n.id);
+        }
+
+        clickTimeoutRef.current = null;
+      }, 300); // 300ms is the standard threshold for double-click
+    },
+    [data.links, toggleNode],
+  );
 
   return (
     <div className="bg-white dark:bg-zinc-950 transition-colors duration-300">
@@ -184,16 +340,71 @@ export default function ArticleGraph() {
             </svg>
           </button>
 
+          {/* 4. The Legend Indicator */}
+          <div className="absolute bottom-6 left-6 z-50 p-4 bg-white/90 dark:bg-zinc-900/95 border border-gray-200 dark:border-gray-800 rounded-xl shadow-lg backdrop-blur-md pointer-events-none select-none max-w-[200px]">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-3">
+              Graph Legend
+            </h4>
+            <div className="space-y-3">
+              {/* Dashed Line Legend */}
+              <div className="flex items-center gap-3">
+                <div className="relative flex items-center justify-center w-6 h-6">
+                  <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                  <div className="absolute w-6 h-6 rounded-full border-2 border-dashed border-emerald-500/50" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold text-zinc-700 dark:text-zinc-200 leading-none">
+                    Dashed Ring
+                  </p>
+                  <p className="text-[9px] text-zinc-500 dark:text-zinc-400">
+                    Expandable Topic
+                  </p>
+                </div>
+              </div>
+
+              {/* Solid Ring Legend */}
+              <div className="flex items-center gap-3">
+                <div className="relative flex items-center justify-center w-6 h-6">
+                  <div className="w-3 h-3 rounded-full bg-blue-500" />
+                  <div className="absolute w-5 h-5 rounded-full border border-blue-500" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold text-zinc-700 dark:text-zinc-200 leading-none">
+                    Solid Ring
+                  </p>
+                  <p className="text-[9px] text-zinc-500 dark:text-zinc-400">
+                    Article Link (Double-click)
+                  </p>
+                </div>
+              </div>
+
+              {/* Simple Node */}
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 flex items-center justify-center">
+                  <div className="w-3 h-3 rounded-full bg-zinc-400 dark:bg-zinc-600" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold text-zinc-700 dark:text-zinc-200 leading-none">
+                    Plain Node
+                  </p>
+                  <p className="text-[9px] text-zinc-500 dark:text-zinc-400">
+                    Final Sub-topic
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <ForceGraph2D
             ref={fgRef as any} // 4. Assign the ref
-            graphData={data}
+            graphData={visibleData}
             width={dimensions.width}
             height={dimensions.height}
             backgroundColor={theme.bg}
             nodeLabel={(node) => {
               const n = node as ArticleNode;
               const clickHint = n.url
-                ? `<br/><span style="color: #10b981; font-size: 10px;">➔ Click to read more</span>`
+                ? `<br/><span style="color: #10b981; font-size: 10px;">➔ Double Click to read more</span>`
                 : "";
 
               return `
@@ -220,12 +431,7 @@ export default function ArticleGraph() {
                 ? "#334155"
                 : "#cbd5e1"
             }
-            onNodeClick={(node) => {
-              const n = node as ArticleNode;
-              if (n.url) {
-                window.open(n.url, "_blank", "noopener,noreferrer");
-              }
-            }}
+            onNodeClick={handleNodeClick}
             nodeCanvasObject={paintNode}
             nodeCanvasObjectMode={() => "replace"}
             nodeVal={(node) => (node as ArticleNode).size} // English comment: Ensure physics engine respects node size
