@@ -30,16 +30,6 @@ export const graphData = {
       group: 1,
     },
     {
-      id: "1.2",
-      title: "Golang TypeSystem",
-      description: `An in-depth exploration of Go's type system, 
-        focusing on how Structs and Interfaces implement OOP principles like Encapsulation and Polymorphism 
-        through composition rather than inheritance.`,
-      size: 2,
-      url: "https://medium.com/@vungocthuan1234/go-type-system-struct-and-interface-an-oop-approach-11c403fd32f8",
-      group: 1,
-    },
-    {
       id: "2",
       title: "SQL",
       description:
