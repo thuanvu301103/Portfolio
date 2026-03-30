@@ -30,6 +30,16 @@ export const graphData = {
       group: 1,
     },
     {
+      id: "1.2",
+      title: "Golang TypeSystem",
+      description: `An in-depth exploration of Go's type system, 
+        focusing on how Structs and Interfaces implement OOP principles like Encapsulation and Polymorphism 
+        through composition rather than inheritance.`,
+      size: 2,
+      url: "https://medium.com/@vungocthuan1234/go-type-system-struct-and-interface-an-oop-approach-11c403fd32f8",
+      group: 1,
+    },
+    {
       id: "2",
       title: "SQL",
       description:
@@ -57,11 +67,103 @@ export const graphData = {
       url: "https://drive.google.com/drive/folders/11SM_v5r_LB32-qiFGjE6addrHv_xIfLz?usp=sharing",
       group: 3,
     },
+    {
+      id: "4",
+      title: "Genkit",
+      description: `Genkit is an open‑source AI development framework built and used in production by Google. 
+      Genkit supports building everything from chatbots to agentic workflows to multimodal applications, using consistent APIs. `,
+      size: 6,
+      url: "https://genkit.dev/docs/go/overview/",
+      group: 4,
+    },
+    {
+      id: "4.1",
+      title: "Defining AI workflows",
+      description: `AI workflows typically require more than just a model call. 
+      They need pre- and post-processing steps like retrieving context, managing session history, 
+      reformatting inputs, validating outputs, or combining multiple model responses.`,
+      size: 2,
+      url: "",
+      group: 4,
+    },
+    {
+      id: "4.2",
+      title: "Tool Calling",
+      description: `Tool calling, also known as function calling, is a structured way to give LLMs the ability 
+      to make requests back to the application that called it`,
+      size: 2,
+      url: "",
+      group: 4,
+    },
+    {
+      id: "4.3",
+      title: "Agentic Patterns",
+      description: `Building powerful AI systems involves more than just calling a model; 
+      it requires structuring interactions in a way that balances reliability with flexibility. 
+      This is the core idea behind the agentic scale`,
+      size: 2,
+      url: "",
+      group: 4,
+    },
+    {
+      id: "4.4",
+      title: "Managing prompts",
+      description: `Prompt engineering is the primary way that you, as an app developer, 
+      influence the output of generative AI models`,
+      size: 2,
+      url: "",
+      group: 4,
+    },
+    {
+      id: "4.5",
+      title: "Persistent chat sessions",
+      description: `A session encapsulates a stateful execution environment with strongly-typed state 
+      that can be persisted across requests. Sessions are useful for maintaining user preferences, 
+      conversation context, or any application state that needs to survive between interactions`,
+      size: 2,
+      url: "",
+      group: 4,
+    },
+    {
+      id: "5",
+      title: "Google Cloud Platform - GCP",
+      description: `GCP (Google Cloud Platform) is Google's cloud computing platform that 
+      provides tools and services for building, deploying, and scaling applications on Google's 
+      global infrastructure`,
+      size: 6,
+      url: "",
+      group: 3,
+    },
+    {
+      id: "5.1",
+      title: "Core Infrastructure & Networking",
+      description: `The Foundation of GCP`,
+      size: 4,
+      url: "",
+      group: 3,
+    },
+    {
+      id: "5.1.1",
+      title: "Identity & Access Management (IAM)",
+      description: `IAM is a tool to manage fine-grained authorization for Google Cloud. 
+      In other words, it lets you control who can do what on which resources.`,
+      size: 2,
+      url: "https://docs.cloud.google.com/iam/docs/overview",
+      group: 3,
+    },
   ],
   links: [
     { source: "1", target: "1.1" },
     { source: "1", target: "1.2" },
+    { source: "1", target: "1.2" },
     { source: "2", target: "2.1" },
+    { source: "4", target: "4.1" },
+    { source: "4", target: "4.2" },
+    { source: "4", target: "4.3" },
+    { source: "4", target: "4.4" },
+    { source: "4", target: "4.5" },
+    { source: "5", target: "5.1" },
+    { source: "5.1", target: "5.1.1" },
   ],
 };
 
@@ -70,6 +172,7 @@ export const getNodeColor = (group: number): string => {
     1: "#00BCD4",
     2: "#8BC34A",
     3: "#FFA000",
+    4: "#E91E63",
   };
 
   return colors[group] || "#E0E0E0";
