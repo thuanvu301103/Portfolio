@@ -235,6 +235,24 @@ export const graphData = {
       url: "https://docs.cloud.google.com/compute/docs/overview",
       group: 3,
     },
+    {
+      id: "5.1.3",
+      title: "Cloud Run",
+      description: `Cloud Run is a fully managed application platform for running your code, 
+      function, or container on top of Google's highly scalable infrastructure.`,
+      size: 2,
+      url: "https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run",
+      group: 3,
+    },
+    {
+      id: "5.1.4",
+      title: "Compute Engine",
+      description: `Compute Engine is an infrastructure as a service (IaaS) 
+      product that offers self-managed virtual machine (VM) instances and bare metal instances`,
+      size: 2,
+      url: "https://docs.cloud.google.com/compute/docs/overview",
+      group: 3,
+    },
   ],
   links: [
     { source: "1", target: "1.1" },
