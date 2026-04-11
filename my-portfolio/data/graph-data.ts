@@ -27,6 +27,7 @@ export const graphData = {
     },
     {
       id: "1.1.1",
+      id: "1.1.1",
       title: "Golang Runtime",
       description: `A core engine responsible for managing program execution, 
         handling Goroutine scheduling (concurrency), automatic memory management (Garbage Collection), 
@@ -36,6 +37,7 @@ export const graphData = {
       group: 1,
     },
     {
+      id: "1.1.2",
       id: "1.1.2",
       title: "Golang TypeSystem",
       description: `An in-depth exploration of Go's type system, 
