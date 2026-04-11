@@ -37,7 +37,6 @@ export const graphData = {
     },
     {
       id: "1.1.2",
-      id: "1.1.2",
       title: "Golang TypeSystem",
       description: `An in-depth exploration of Go's type system, 
         focusing on how Structs and Interfaces implement OOP principles like Encapsulation and Polymorphism 
